@@ -7,7 +7,7 @@ git log -p <file>
 ```
 
 # Target Team
-* Wyatt Roersma ([@vtriple](https://twitter.com/vtriple)) - Lead
+* Wyatt Roersma ([@vtriple](https://twitter.com/wyattroersma)) - Lead
 * Kyle Eaton ([@0xkyle](https://twitter.com/0xkyle)) - Contributor
 * Devin Smith - Contributor
 * Thao Vo ([@ttttv0](https://twitter.com/ttttv0)) - OS Maintainer
