@@ -1,11 +1,27 @@
 # Halogen
 Halogen is a tool to automate the creation of yara rules against image files embedded within a malicious document. 
 
-![Halo Walkthrough](/images/halo_diagram.png)
+![Halo Walkthrough](halogen/data/halo_diagram.png)
+## Halogen Install
+Get the latest version from github with a git clone.
 
+**Note:** Python 3.6 + is required 
+
+### Python install
+        git clone https://github.com/target/halogen
+        cd halogen
+        python setup.py install
+
+
+### Pip install
+Use a python 3 pip command to install from source.
+
+        pip install https://github.com/target/halogen
+        
+        
 ## Halogen help 
 ```
-python3 halogen.py -h
+halogencli.py -h
 usage: halogen.py [-h] [-f FILE] [-d DIR] [-n NAME] [--png-idat] [--jpg-sos]
 
 Halogen: Automatically create yara rules based on images embedded in office
