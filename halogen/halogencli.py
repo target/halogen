@@ -1,6 +1,6 @@
 # coding=utf-8
 """ The mfbot Python3 CLI script """
-from mfbot import MFBot
+from halogen.mfbot import MFBot
 
 
 def main() -> None:
