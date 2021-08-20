@@ -1,3 +1,5 @@
+## 8/20/2021
+* reworking documentation
 ## 4/22/2021
 * Adding in support for jumping over repeated bytes in jpeg files, this should reduce false positives `--jpg-jump`
 ## 4/14/2021

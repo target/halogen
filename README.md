@@ -39,10 +39,10 @@ We've included some test document files with embedded images for you to test thi
 From here you can run `yara -s /tmp/halogen_test.yara tests/` and observe which images match which files. 
 
 ### Notes
-1. We use two patterns for JPG matching.  One is less strict to the typical JPG file header, and we use this because we've seen some malicious files use this format.  If Halogen finds both, it'll default to writing out the more strict match.  Typically, these have the same matching content, so no detection really gets missed. 
+1. We use two patterns for JPG matching.  One is less strict than the typical JPG file header, and we use this because we've seen some malicious files match this pattern.  If Halogen finds both, it'll default to writing out the more strict match.  Typically, these have the same matching content, so no detection really gets missed. 
 2. For PNG files you can choose to start by default at the file header, or with `--png-idat` you can start at the IDAT chunk found within a PNG file.  We also reduced the bytes returned when matching on the IDAT chunk. 
 3. Similar to the above, you can start JPG matches at the Start of Scan marker by using the `--jpg-sos` flag.
-4. Because of how the SOS section of the JPG file works, we've also included an optional `--jpg-sof2os` flag, which reads the Start of Frame (SOF) marker until the SOS is found, and then reads an additional 45 bytes.  This is useful if the the stardard `--jpg-sos` is giving you false positives. 
+4. Because of how the SOS section of the JPG file works, we've also included an optional `--jpg-sof2sos` flag, which reads the Start of Frame (SOF) marker until the SOS is found, and then reads an additional 45 bytes.  This is useful if the the stardard `--jpg-sos` is giving you false positives. 
 5. In an effort to reduce false positives, we've added in the `--jpg-jump` flag which reads the compressed image data and creates a hex jump in the yara output if it finds repeated image bytes. This allows us to match on the SOF and SOS of the file, as well as some of the more unique data in the image.
 
 
