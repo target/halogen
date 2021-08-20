@@ -15,14 +15,12 @@ class MFBot:
         self.image_name = None
         self.idat = args.idat
         self.jpgsos = args.jpgsos
+        self.sof2sos = args.sof2sos
         self.dir = args.dir
+        self.jump = args.jump
         self.dirhash = []
         self.name = args.name
-        project_info_data = """
--- Halogen ------------------------------------
-Authors: Wyatt Roersma, Kyle Eaton, Devin Smith
------------------------------------------------
-        """
+
 
     @staticmethod
     def parse_args()-> iter:
@@ -39,6 +37,13 @@ Authors: Wyatt Roersma, Kyle Eaton, Devin Smith
         parser_args.add_argument("--jpg-sos", dest="jpgsos", help="For JPG matches, skip \
             over the header and look for the Start of Scan marker, \
             and begin the match there.", action='store_true')
+        parser_args.add_argument("--jpg-sof2sos", dest="sof2sos", help="for JPG matches, \
+            skip over the header and match the SOF all the way to the SOS + 45 bytes of the \
+            data within the SOS.", action='store_true')
+        parser_args.add_argument("--jpg-jump", dest="jump", help="for JPG matches, \
+            skip over the header and identify the sof, the sos and then read the actual image data \
+            take that data and look for repeated bytes. Skip those bytes and then create 45 bytes of\
+            raw image data.", action='store_true')
         args = parser_args.parse_args()
         if (args.file is None) and (args.dir is None):
             parser_args.print_help()
