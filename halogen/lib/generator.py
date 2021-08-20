@@ -31,12 +31,9 @@ def yara_image_generator(self) -> dict:
             for match in self.get_file[1][ftype]:
                 rule_data = {}
                 rule_data['format'] = ftype
-                if type(match) is bytes:
-                    img_hex_value = binascii.hexlify(match)
-                    value = (str(img_hex_value))
-                    rule_data['hex'] = value[2:-1]
-                elif type(match) is str:
-                    rule_data['hex'] = match
+                img_hex_value = binascii.hexlify(match)
+                value = (str(img_hex_value))
+                rule_data['hex'] = value[2:-1]
                 if rule_data not in dict_list:
                     dict_list.append(rule_data)
     return dict_list
