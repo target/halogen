@@ -3,7 +3,7 @@ import glob
 import os
 from lib.parser import get_file
 from lib.generator import yara_image_rule_maker
-from lib.render import yara_print_rule
+from lib.render import yara_print_rule, clam_print_rule
 
 
 
@@ -20,8 +20,9 @@ class MFBot:
         self.jump = args.jump
         self.dirhash = []
         self.name = args.name
-
-
+        self.container = args.container
+        self.clam = args.clam
+        self.rprefix = args.rprefix
     @staticmethod
     def parse_args()-> iter:
         """ Parse any options passed to the the script """
@@ -44,6 +45,10 @@ class MFBot:
             skip over the header and identify the sof, the sos and then read the actual image data \
             take that data and look for repeated bytes. Skip those bytes and then create 45 bytes of\
             raw image data.", action='store_true')
+        parser_args.add_argument("-c", "--container", dest="container", help="specify a clamav container type \
+            defaults to CL_TYPE_MSOLE2, CL_TYPE_OOXML_WORD, CL_TYPE_OOXML_XL, CL_TYPE_OOXML_PPT")
+        parser_args.add_argument("--clam", dest="clam", help="generate a clam rule instead of a yara rule", action="store_true")
+        parser_args.add_argument("--rprefix", dest="rprefix", help="specify a clamav ruleset prefix")        
         args = parser_args.parse_args()
         if (args.file is None) and (args.dir is None):
             parser_args.print_help()
@@ -63,7 +68,10 @@ class MFBot:
         """ prints the yara rule by reading in a list of dicts, and iterating over that.
         parameter: rule_list - list of rules to print. """
         yara_print_rule(self, rule_list)
-
+    def print_clam_rule(self, rule_list):
+        """ prints the yara rule by reading in a list of dicts, and iterating over that.
+        parameter: rule_list - list of rules to print. """
+        clam_print_rule(self, rule_list)
     def dir_run(self):
         """ runs through the process with a directory instead of a single file.
         returns: combo list. """

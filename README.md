@@ -7,11 +7,9 @@ Halogen is a tool to automate the creation of yara rules based on the image file
 ## Halogen help 
 ```
 python3 halogen.py -h
-usage: halogen.py [-h] [-f FILE] [-d DIR] [-n NAME] [--png-idat] [--jpg-sos]
-                  [--jpg-sof2sos] [--jpg-jump]
+usage: halogen.py [-h] [-f FILE] [-d DIR] [-n NAME] [--png-idat] [--jpg-sos] [--jpg-sof2sos] [--jpg-jump] [-c CONTAINER] [--clam] [--rprefix RPREFIX]
 
-Halogen: Automatically create yara rules based on images embedded in office
-documents.
+Halogen: Automatically create yara rules based on images embedded in office documents.
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -20,17 +18,15 @@ optional arguments:
                         directory to scan for image files.
   -n NAME, --rule-name NAME
                         specify a custom name for the rule file
-  --png-idat            For PNG matches, instead of starting with the PNG file
-                        header, start with the IDAT chunk.
-  --jpg-sos             For JPG matches, skip over the header and look for the
-                        Start of Scan marker, and begin the match there.
-  --jpg-sof2sos         for JPG matches, skip over the header and match the
-                        SOF all the way to the SOS + 45 bytes of the data
-                        within the SOS.
-  --jpg-jump            for JPG matches, skip over the header and identify the
-                        sof, the sos and then read the actual image data take
-                        that data and look for repeated bytes. Skip those
-                        bytes and then create 45 bytes of raw image data.
+  --png-idat            For PNG matches, instead of starting with the PNG file header, start with the IDAT chunk.
+  --jpg-sos             For JPG matches, skip over the header and look for the Start of Scan marker, and begin the match there.
+  --jpg-sof2sos         for JPG matches, skip over the header and match the SOF all the way to the SOS + 45 bytes of the data within the SOS.
+  --jpg-jump            for JPG matches, skip over the header and identify the sof, the sos and then read the actual image data take that data and look for repeated bytes. Skip those bytes and then
+                        create 45 bytes of raw image data.
+  -c CONTAINER, --container CONTAINER
+                        specify a clamav container type defaults to CL_TYPE_MSOLE2, CL_TYPE_OOXML_WORD, CL_TYPE_OOXML_XL, CL_TYPE_OOXML_PPT
+  --clam                generate a clam rule instead of a yara rule
+  --rprefix RPREFIX     specify a clamav ruleset prefix
 
 
 ```
