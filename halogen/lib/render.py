@@ -1,7 +1,7 @@
 # coding=utf-8
 """ The render library to support all output processes  """
 import datetime
-
+import re
 
 def yara_print_rule(self, l):
     """ iterate over the list, and print a string for each rule
@@ -106,6 +106,8 @@ def clam_print_rule(self, l):
             rule_dict = l[i]
             ftype = rule_dict['format'].lower()
             image_hex = rule_dict['hex']
+            for m in re.finditer(r"(?P<jmp> \[ (?P<val>\d+) \] )",image_hex):
+                image_hex = re.sub(re.escape(m.group('jmp')),f"\x7b{m.group('val')}\x7d",image_hex)
             s = "{image_value_str}".format(image_value_str=image_hex)
             rule_string += s
             if i < j:
