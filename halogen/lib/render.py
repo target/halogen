@@ -94,7 +94,11 @@ def clam_print_rule(self, l):
                 ]
     for container in container_list:
         ctype = container.split("_")[-1]
-        rule_string = """{rname}.{ctype}.{date};Engine:81-255,Container:{container},Target:5;(""".format(rname=rname,ctype=ctype,date=datetime.datetime.now().strftime("%y%m%d"),container=container)
+        if ctype=="MSOLE2":
+            #Special Handling because apparently clam has issues pulling these out of OLE sometimes
+            rule_string = """{rname}.{ctype}.{date};Engine:81-255,Target:2;(""".format(rname=rname,ctype=ctype,date=datetime.datetime.now().strftime("%y%m%d"),container=container)
+        else:
+            rule_string = """{rname}.{ctype}.{date};Engine:81-255,Container:{container},Target:5;(""".format(rname=rname,ctype=ctype,date=datetime.datetime.now().strftime("%y%m%d"),container=container)            
         j = len(l) - 1
         for i in range(0, len(l)):
             rule_string += str(i)
