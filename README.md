@@ -36,7 +36,7 @@ optional arguments:
 ```
 ## Testing it out
 We've included some test document files with embedded images for you to test this out with.  Running `python3 halogen/halogen.py -d tests/ > /tmp/halogen_test.yara` will produce the test yara file containing all images found within the files inside the `tests/` directory.  
-From here you can run `yara -s /tmp/halogen_test.yara tests/` and observe which images match which files. 
+From here you can run `yara -d /tmp/halogen_test.yara tests/` and observe which images match which files. 
 
 ### Notes
 1. We use two patterns for JPG matching.  One is less strict than the typical JPG file header, and we use this because we've seen some malicious files match this pattern.  If Halogen finds both, it'll default to writing out the more strict match.  Typically, these have the same matching content, so no detection really gets missed. 
