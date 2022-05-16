@@ -10,13 +10,19 @@ def main() -> None:
     if mfbot.dir:
         yara_rule_output = mfbot.dir_run()
         if len(yara_rule_output) > 0:
-            mfbot.print_yara_rule(yara_rule_output)
+            if mfbot.clam:
+                mfbot.print_clam_rule(yara_rule_output)
+            else:
+                mfbot.print_yara_rule(yara_rule_output)
         else:
             print("No images found within that directory")
     else:
         yara_rule_output = mfbot.run()
         if len(yara_rule_output) > 0:
-            mfbot.print_yara_rule(yara_rule_output)
+            if mfbot.clam:
+                mfbot.print_clam_rule(yara_rule_output)                
+            else:
+                mfbot.print_yara_rule(yara_rule_output)
         else:
             print('No image found.')
 

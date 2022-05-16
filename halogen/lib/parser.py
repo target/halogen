@@ -114,7 +114,7 @@ def get_matches(self, file_map) -> dict:
     match_dict = {
         'GIF': re.findall(b'(?s)(\x47\x49\x46\x38\x39\x61.{80})', file_map),
         'RTF': re.findall(b'(?s)(.{20}\x35\x30\x34\x65\x34\x37\x30.{80}|.{20}\x66\x66\x64\x38\x66\x66.{80}|'
-                          b'.{20}\x66\x66\x64\x38\x66\x66\x65\x30\x30\x30\x31\x30.{80})', file_map)
+                          b'.{20}\x66\x66\x64\x38\x66\x66\x65\x30\x30\x30\x31\x30.{80})', file_map),
     }
     if self.jpgsos:
         match_dict['JPG_SOS'] = jpg_sos(file_map)
@@ -129,7 +129,9 @@ def get_matches(self, file_map) -> dict:
         match_dict['PNG_IDAT'] = idat(file_map)
     else:
         match_dict['PNG'] = re.findall(b'(?s)(\x89\x50\x4e\x47.{82})', file_map)
-
+    m = re.match(br'^(?P<magic_beans>\x49\x49\x2a\x00[^\x00\x00]{2}.{80})',file_map,re.S)
+    if m:
+        match_dict['TIF'] = [m.group('magic_beans')]
     for file_type, regex_match in match_dict.items():
         if len(regex_match) > 0:
             get_file_dict[file_type] = regex_match
